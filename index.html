@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 500px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .generate-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .password-display {
+            font-size: 18px;
+            padding: 10px;
+            text-align: center;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .copy-btn {
+            padding: 10px 20px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Password Generator</h2>
+        <button class="generate-btn">Generate Password</button>
+        <div class="password-display"></div>
+        <button class="copy-btn">Copy</button>
+    </div>
+    <script>
+        const generateBtn = document.querySelector(".generate-btn");
+        const passwordDisplay = document.querySelector(".password-display");
+        const copyBtn = document.querySelector(".copy-btn");
+
+        const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+        const numbers = "0123456789";
+        const symbols = "!@#$%^&*()_+-=[]{};:<>,.?/";
+
+        function generatePassword() {
+            let password = "";
+            let characters = upperCase + lowerCase + numbers + symbols;
+            for (let i = 0; i < 12; i++) {
+                password += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            passwordDisplay.innerHTML = password;
+        }
+
+        generatePassword();
+
+        generateBtn.addEventListener("click", generatePassword);
+
+        copyBtn.addEventListener("click", function () {
+            const textarea = document.createElement("textarea");
+            textarea.value = passwordDisplay.innerHTML;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            textarea.remove();
+            alert("Password copied to clipboard");
+        });
+    </script>
+
+</body>
+
+</html>
